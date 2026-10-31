@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block content %}<h2>Add product</h2>
+<form method="post" class="form-card">
+<label>SKU</label><input class="form-control" name="sku" required>
+<label>Product name</label><input class="form-control" name="product_name" required>
+<label>Category</label><input class="form-control" name="category">
+<label>Opening stock</label><input class="form-control" type="number" min="0" name="opening_stock" value="0" required>
+<label>Reorder level</label><input class="form-control" type="number" min="0" name="reorder_level" value="5" required>
+<label>Unit cost</label><input class="form-control" type="number" min="0" step="0.01" name="unit_cost" value="0" required>
+<button class="btn btn-primary mt-3">Save product</button></form>{% endblock %}

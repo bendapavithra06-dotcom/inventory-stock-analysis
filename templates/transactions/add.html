@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block content %}<h2>Record stock movement</h2>
+<form method="post" class="form-card">
+<label>Product</label><select class="form-select" name="product_id" required>{% for p in products %}<option value="{{ p.product_id }}">{{ p.product_name }} (available: {{ p.current_stock }})</option>{% endfor %}</select>
+<label>Movement type</label><select class="form-select" name="transaction_type"><option value="IN">Stock IN</option><option value="OUT">Stock OUT</option></select>
+<label>Quantity</label><input class="form-control" type="number" min="1" name="quantity" required>
+<label>Supplier (optional)</label><select class="form-select" name="supplier_id"><option value="">Not specified</option>{% for s in suppliers %}<option value="{{ s.supplier_id }}">{{ s.supplier_name }}</option>{% endfor %}</select>
+<label>Notes / reason</label><input class="form-control" name="notes" maxlength="255">
+<button class="btn btn-primary mt-3">Save transaction</button></form>{% endblock %}

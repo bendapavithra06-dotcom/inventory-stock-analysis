@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block content %}<h2>Inventory analysis report</h2>
+<h5 class="mt-3">Estimated inventory value: ₹ {{ "%.2f"|format(total_value) }}</h5>
+<h4 class="mt-4">Current stock report</h4><div class="table-responsive"><table class="table table-striped"><tr><th>SKU</th><th>Product</th><th>Opening</th><th>IN</th><th>OUT</th><th>Current</th><th>Value</th><th>Status</th></tr>
+{% for p in products %}<tr><td>{{ p.sku }}</td><td>{{ p.product_name }}</td><td>{{ p.opening_stock }}</td><td>{{ p.total_in }}</td><td>{{ p.total_out }}</td><td>{{ p.current_stock }}</td><td>₹ {{ "%.2f"|format(p.stock_value) }}</td><td>{% if p.low_stock %}<span class="badge bg-danger">Low stock</span>{% else %}<span class="badge bg-success">OK</span>{% endif %}</td></tr>{% else %}<tr><td colspan="8">No data available.</td></tr>{% endfor %}</table></div>
+<h4 class="mt-4">Fast-moving products (based on total stock-out)</h4><ol>{% for p in fast_products %}<li>{{ p.product_name }} — {{ p.total_out }} units issued</li>{% else %}<li>No movement data yet.</li>{% endfor %}</ol>{% endblock %}

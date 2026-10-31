@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block content %}
+<h2 class="mb-4">Dashboard</h2>
+<div class="row g-3 mb-4">
+{% for label,value in [('Products',stats.products),('Total Units',stats.units),('Low Stock Items',stats.low),('Inventory Value','₹ %.2f'|format(stats.value))] %}
+<div class="col-md-3"><div class="card metric"><div class="card-body"><div class="text-muted">{{ label }}</div><h3>{{ value }}</h3></div></div></div>
+{% endfor %}</div>
+<div class="d-flex gap-2 mb-4"><a class="btn btn-primary" href="{{ url_for('products.add') }}">Add Product</a><a class="btn btn-success" href="{{ url_for('transactions.add') }}">Record Movement</a></div>
+<h4>Low-stock products</h4>
+<div class="table-responsive"><table class="table table-striped"><tr><th>SKU</th><th>Product</th><th>Current Stock</th><th>Reorder Level</th></tr>
+{% for p in low_products %}<tr><td>{{ p.sku }}</td><td>{{ p.product_name }}</td><td>{{ p.current_stock }}</td><td>{{ p.reorder_level }}</td></tr>{% else %}<tr><td colspan="4">No low-stock products.</td></tr>{% endfor %}</table></div>
+<div class="row g-4 mt-2">
+<div class="col-lg-6"><h5>Current stock levels</h5><img class="img-fluid" src="{{ url_for('static',filename='charts/'+stock_chart) }}" onerror="this.style.display='none'"></div>
+<div class="col-lg-6"><h5>Stock movement</h5><img class="img-fluid" src="{{ url_for('static',filename='charts/'+movement_chart) }}" onerror="this.style.display='none'"></div>
+</div>{% endblock %}
